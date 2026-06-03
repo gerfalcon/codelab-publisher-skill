@@ -1,0 +1,88 @@
+author: {{AUTHOR}}
+summary: {{ONE_LINE_SUMMARY}}
+id: {{SLUG_ID}}
+categories: {{CATEGORY_1}},{{CATEGORY_2}}
+environments: Web
+status: Draft
+feedback link: {{REPO_URL}}/issues
+
+# {{TITLE}}
+
+## Overview
+Duration: 0:02
+
+{{TWO_OR_THREE_SENTENCES_DESCRIBING_WHAT_THE_LEARNER_WILL_BUILD_OR_LEARN}}
+
+### What you'll learn
+
+- {{LEARNING_OUTCOME_1}}
+- {{LEARNING_OUTCOME_2}}
+- {{LEARNING_OUTCOME_3}}
+
+### What you'll need
+
+- {{PREREQUISITE_1}}
+- {{PREREQUISITE_2}}
+- {{ESTIMATED_TIME}} minutes
+
+## {{STEP_1_TITLE}}
+Duration: 0:05
+
+{{STEP_1_INTRO_PARAGRAPH}}
+
+{{STEP_1_BODY_INSTRUCTIONS}}
+
+```{{LANGUAGE}}
+{{STEP_1_CODE_EXAMPLE}}
+```
+
+Positive
+: {{STEP_1_TIP_OR_SUCCESS_INDICATOR}}
+
+## {{STEP_2_TITLE}}
+Duration: 0:08
+
+{{STEP_2_INTRO_PARAGRAPH}}
+
+{{STEP_2_BODY_INSTRUCTIONS}}
+
+```{{LANGUAGE}}
+{{STEP_2_CODE_EXAMPLE}}
+```
+
+To verify:
+
+```console
+{{STEP_2_EXPECTED_OUTPUT}}
+```
+
+Negative
+: {{STEP_2_COMMON_PITFALL}}
+
+## {{STEP_3_TITLE}}
+Duration: 0:08
+
+{{STEP_3_INTRO_PARAGRAPH}}
+
+{{STEP_3_BODY_INSTRUCTIONS}}
+
+```{{LANGUAGE}}
+{{STEP_3_CODE_EXAMPLE}}
+```
+
+## Wrap up
+Duration: 0:02
+
+You've now {{ONE_SENTENCE_RECAP_OF_WHAT_THEY_BUILT}}.
+
+### What you covered
+
+- {{COVERED_TOPIC_1}}
+- {{COVERED_TOPIC_2}}
+- {{COVERED_TOPIC_3}}
+
+### Where to go next
+
+- [{{NEXT_RESOURCE_TITLE_1}}]({{NEXT_RESOURCE_URL_1}})
+- [{{NEXT_RESOURCE_TITLE_2}}]({{NEXT_RESOURCE_URL_2}})
+- [{{NEXT_RESOURCE_TITLE_3}}]({{NEXT_RESOURCE_URL_3}})
