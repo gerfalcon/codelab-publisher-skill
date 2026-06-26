@@ -63,3 +63,5 @@ The workflow is opinionated by design:
 1. **Brainstorm first** — topic, audience, difficulty, length, and supporting resources before any content is written.
 2. **Markdown source by default** — local, version-controllable, and easy to draft. The Google Docs flow is supported when collaborative editing is needed.
 3. **One codelab per repo, `/docs` on `main`** — the simplest deploy path with no CI required. Multi-codelab and `gh-pages` flows are documented in `references/github-pages-deploy.md`.
+4. **Feedback Form Generation** — Once the codelab is verified, the skill automatically extracts its step-by-step structure to construct a custom prompt. Using this prompt with an LLM generates a Google Apps Script that instantly builds a matching multi-section feedback Google Form.
+
