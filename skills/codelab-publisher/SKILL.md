@@ -128,6 +128,7 @@ Write `codelab.md` in the project root.
 
 **Critical format reminders** (full spec in `references/codelab-md-format.md`):
 
+- **Durations must match the approved outline:** Update the `Duration: 0:XX` line on every step header to match the durations approved in the outline. The sum of all step durations in `codelab.md` must match the target duration selected by the user (e.g., ~60 minutes for a 1-hour format, or ~30 minutes for a 30-min format). Do NOT use default or placeholder durations (like `0:01` or `0:02` everywhere) as this breaks the total remaining time calculation in the codelab UI.
 - The header is **NOT YAML frontmatter**. No `---` fences. Bare `key: value` lines, one per line, **blank line before the H1 title**.
 - `Duration: 0:05` goes on the line **immediately after** each `## Step` header — no blank line between.
 - Callouts: `Positive` on its own line, next line begins `: ` (colon-space). Same for `Negative`. These render as green/red callout boxes.
