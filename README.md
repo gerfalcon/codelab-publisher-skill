@@ -13,18 +13,46 @@ The skill takes a topic from a structured brainstorm all the way to a polished, 
 | `references/` | Deep-dive docs: codelab markdown format, `claat` reference, GitHub Pages deploy options, and the brainstorming question set. |
 | `scripts/` | Helpers to check prerequisites, install `claat`, and deploy. |
 
+## Installation & Setup
+
+Follow these steps to configure the skill and its dependencies:
+
+### 1. Install the Skill
+Copy or symlink this directory into your agent's skills folder:
+- **For Google Antigravity / Gemini**:
+  - Project-level: `.agents/skills/codelab-publisher` (within your workspace)
+  - Global: `~/.gemini/skills/codelab-publisher`
+- **For Claude Desktop**:
+  - Global: `~/.claude/skills/codelab-publisher`
+
+### 2. Install Prerequisites
+Ensure the necessary CLI tools are installed:
+- **Git & GitHub CLI (`gh`)**:
+  ```bash
+  brew install git gh
+  gh auth login
+  ```
+- **`claat` CLI**: Run the installer script to set up the Google Codelab CLI:
+  ```bash
+  bash scripts/install_claat.sh
+  ```
+  *(Note: The script compiles `claat` from source if Go is installed, or downloads a prebuilt binary via `gh`. On Apple Silicon, installing Go (`brew install go`) first is recommended to avoid Rosetta 2 requirements.)*
+
+### 3. Verify Installation
+Run the verification script to check your environment:
+```bash
+bash scripts/check_prereqs.sh
+```
+
 ## Usage
 
-Drop this directory into your agent's skills folder (e.g. `~/.claude/skills/codelab-publisher`). The skill triggers whenever you ask to build a codelab, write a step-by-step interactive tutorial, or publish a tutorial to GitHub Pages.
+Once installed, the skill triggers automatically whenever you ask the agent to:
+- Build a Google Codelab
+- Write a step-by-step interactive tutorial
+- Publish a tutorial to GitHub Pages
 
 The workflow is opinionated by design:
 
 1. **Brainstorm first** — topic, audience, difficulty, length, and supporting resources before any content is written.
 2. **Markdown source by default** — local, version-controllable, and easy to draft. The Google Docs flow is supported when collaborative editing is needed.
 3. **One codelab per repo, `/docs` on `main`** — the simplest deploy path with no CI required. Multi-codelab and `gh-pages` flows are documented in `references/github-pages-deploy.md`.
-
-## Prerequisites
-
-- The Go-based `claat` CLI (`scripts/install_claat.sh` installs it).
-- The GitHub CLI (`gh`), authenticated.
-- Run `scripts/check_prereqs.sh` to verify your environment.
