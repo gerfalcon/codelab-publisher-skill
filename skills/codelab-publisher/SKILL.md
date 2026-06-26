@@ -140,10 +140,10 @@ After drafting, show the user the codelab.md (or a section-by-section summary if
 ## [6] Build with claat
 
 ```bash
-claat export -o docs codelab.md
+claat export -o docs codelab.md && bash .agents/skills/codelab-publisher/scripts/post_process.sh
 ```
 
-This produces `docs/<id>/index.html` plus `codelab.json` and any extracted images. The `<id>` comes from the `id:` field in the header.
+This produces `docs/<id>/index.html` plus `codelab.json` and any extracted images. The `<id>` comes from the `id:` field in the header. The post-processing script automatically injects "Copy to Clipboard" buttons on all code blocks.
 
 For local preview before deploying:
 
@@ -151,7 +151,14 @@ For local preview before deploying:
 cd docs && claat serve -addr localhost:9090
 ```
 
-Run that in the background; open `http://localhost:9090` in a browser. The user can iterate on `codelab.md` and re-export — `claat serve` watches the directory. If they want changes, return to step [5].
+Run that in the background; open `http://localhost:9090` in a browser. The user can iterate on `codelab.md` and re-export + post-process:
+
+```bash
+# To update changes during local preview:
+claat export -o docs codelab.md && bash .agents/skills/codelab-publisher/scripts/post_process.sh
+```
+
+`claat serve` watches the directory and serves the updated HTML containing copy-to-clipboard buttons. If they want changes, return to step [5].
 
 ## [7] Deploy
 
@@ -164,13 +171,14 @@ bash scripts/deploy.sh
 `deploy.sh` (read it once before running so you can explain failures):
 
 1. Verifies `docs/<id>/index.html` exists.
-2. Initializes a git repo if not already in one (`git init -b main`).
-3. Stages only `codelab.md` + `$DOCS_DIR/` (never `git add -A`) and commits them. This deliberately keeps the codelab-publisher skill files out of the published repo.
-4. If no `origin` remote, creates a new GitHub repo via `gh repo create` (uses `REPO_NAME` and `VISIBILITY` env vars if set; otherwise defaults to `codelab-<id>` and `public` — ask the user for these before running if defaults aren't what they want).
-5. Pushes to the current branch.
-6. Enables GitHub Pages on `/docs` of the pushed branch via `gh api -X POST /repos/{owner}/{repo}/pages`. If Pages is already configured with a different source, it stops and warns — it does not silently change existing config.
-7. Polls Pages status until `built` (up to 90 seconds).
-8. Prints the live codelab URL.
+2. Automatically runs `post_process.sh` to inject copy-to-clipboard buttons (if not already done).
+3. Initializes a git repo if not already in one (`git init -b main`).
+4. Stages only `codelab.md` + `$DOCS_DIR/` (never `git add -A`) and commits them. This deliberately keeps the codelab-publisher skill files out of the published repo.
+5. If no `origin` remote, creates a new GitHub repo via `gh repo create` (uses `REPO_NAME` and `VISIBILITY` env vars if set; otherwise defaults to `codelab-<id>` and `public` — ask the user for these before running if defaults aren't what they want).
+6. Pushes to the current branch.
+7. Enables GitHub Pages on `/docs` of the pushed branch via `gh api -X POST /repos/{owner}/{repo}/pages`. If Pages is already configured with a different source, it stops and warns — it does not silently change existing config.
+8. Polls Pages status until `built` (up to 90 seconds).
+9. Prints the live codelab URL.
 
 To pre-set repo name / visibility before running:
 
@@ -225,4 +233,5 @@ If the user wants changes after the codelab is live:
 - `assets/codelab.md.template` — starter codelab.md with header + step skeletons
 - `scripts/check_prereqs.sh` — verify claat / gh / git / auth
 - `scripts/install_claat.sh` — install claat via Go or prebuilt binary
-- `scripts/deploy.sh` — build + commit + push + enable Pages + poll until built
+- `scripts/post_process.sh` — inject copy-to-clipboard buttons into generated HTML
+- `scripts/deploy.sh` — post-process + build + commit + push + enable Pages + poll until built

@@ -31,6 +31,15 @@ fi
 CODELAB_ID="$(ls -d "$DOCS_DIR"/*/ 2>/dev/null | head -1 | xargs -n1 basename)"
 echo "Codelab id: $CODELAB_ID"
 
+# ---------- Run post-processing (inject copy-to-clipboard buttons) ----------
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "$SCRIPT_DIR/post_process.sh" ]; then
+  echo "Running post-processing..."
+  DOCS_DIR="$DOCS_DIR" bash "$SCRIPT_DIR/post_process.sh"
+else
+  echo "WARNING: post_process.sh not found at $SCRIPT_DIR/post_process.sh. Skipping code copy feature injection."
+fi
+
 # ---------- Ensure git repo ----------
 if ! git rev-parse --git-dir >/dev/null 2>&1; then
   echo "Not inside a git repo. Initializing..."
