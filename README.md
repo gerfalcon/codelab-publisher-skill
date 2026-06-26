@@ -18,12 +18,13 @@ The skill takes a topic from a structured brainstorm all the way to a polished, 
 Follow these steps to configure the skill and its dependencies:
 
 ### 1. Install the Skill
-Copy or symlink this directory into your agent's skills folder:
-- **For Google Antigravity / Gemini**:
-  - Project-level: `.agents/skills/codelab-publisher` (within your workspace)
-  - Global: `~/.gemini/skills/codelab-publisher`
-- **For Claude Desktop**:
-  - Global: `~/.claude/skills/codelab-publisher`
+Copy or symlink this directory into your agent's skills folder depending on your environment:
+- **Project-level (supported by many agentic platforms like Antigravity)**:
+  - `.agents/skills/codelab-publisher` (at the root of your workspace)
+- **Global (Google Antigravity / Gemini)**:
+  - `~/.gemini/skills/codelab-publisher`
+- **Global (Claude Code CLI)**:
+  - `~/.claude/skills/codelab-publisher`
 
 ### 2. Install Prerequisites
 Ensure the necessary CLI tools are installed:
