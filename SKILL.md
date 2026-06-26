@@ -41,7 +41,7 @@ The flow runs **in order**, with explicit user sign-off at each gate. Resist the
                           ↓
                     [7] Deploy: repo + GitHub Pages
                           ↓
-                    [8] Verify live URL
+                    [8] Verify live URL  →  [9] Create feedback form prompt
 ```
 
 ---
@@ -188,6 +188,15 @@ After `deploy.sh` prints the URL, do these in order:
 2. **Construct the codelab URL**: `<pages_url><id>/`. Note the trailing `/<id>/` — claat puts the codelab in a subdirectory named after its `id`, and the Pages root by itself will 404 unless you also wrote a top-level `docs/index.html` redirect (see `references/github-pages-deploy.md` for the redirect snippet).
 3. **Print the URL to the user.** Offer to screenshot it for a sanity check using the chrome-devtools MCP (`mcp__chrome-devtools__new_page` + `take_screenshot`) — useful for catching obvious rendering issues like missing images or broken code blocks.
 
+## [9] Create feedback form prompt
+
+Once the codelab is built and verified, create a prompt that the user can use to generate a Google Form feedback template.
+
+1. **Extract Codelab Details:** Parse `codelab.md` to extract the H1 title (e.g., `# My Codelab Title`) and all the H2 step headings (e.g., `## 1. Introduction`).
+2. **Generate the Prompt:** Load the prompt template from `references/feedback-form-prompt.md`. Replace `{{CODELAB_TITLE}}` with the codelab's title, and populate `{{STEP_SECTIONS}}` with a list of step sections extracted from the H2 headers (e.g., `- Section: "Step: 1. Introduction"`).
+3. **Save to File:** Write the fully populated prompt into `feedback-form-prompt.txt` at the root of the project.
+4. **Instruct the User:** Present the prompt to the user and guide them on how to paste it into an LLM (such as Gemini or Claude) to generate a Google Apps Script, which they can run at script.google.com to instantly create their multi-section Google Form.
+
 ## Iterating after publish
 
 If the user wants changes after the codelab is live:
@@ -212,6 +221,7 @@ If the user wants changes after the codelab is live:
 - `references/codelab-md-format.md` — full markdown format spec with annotated examples (load while authoring)
 - `references/github-pages-deploy.md` — deployment patterns, redirect snippet, gh-pages branch and Actions alternatives (load when `deploy.sh` hits an edge case or user wants a different deploy pattern)
 - `references/brainstorm-questions.md` — exact `AskUserQuestion` JSON for the brainstorm phase
+- `references/feedback-form-prompt.md` — template and specification for generating the Google Form feedback prompt (load in step [9])
 - `assets/codelab.md.template` — starter codelab.md with header + step skeletons
 - `scripts/check_prereqs.sh` — verify claat / gh / git / auth
 - `scripts/install_claat.sh` — install claat via Go or prebuilt binary
