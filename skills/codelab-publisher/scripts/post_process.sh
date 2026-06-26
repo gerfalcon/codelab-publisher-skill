@@ -83,10 +83,21 @@ const fs = require('fs');
 const filePath = process.argv[1];
 const script = process.argv[2];
 let content = fs.readFileSync(filePath, 'utf8');
+
+// 1. Convert plain-text callouts (Positive/Negative/Warning/etc.) to native <aside> callout boxes
+content = content.replace(/<p>\s*(Positive|Negative|Success|Warning|Error|Tip|Note)\s*[:\-–—]\s*(.*?)<\/p>/gis, (match, type, text) => {
+  const typeLower = type.toLowerCase();
+  const isPositive = typeLower === \"positive\" || typeLower === \"success\" || typeLower === \"tip\" || typeLower === \"note\";
+  const cssClass = isPositive ? \"positive\" : \"negative\";
+  return \"<aside class=\\\"\" + cssClass + \"\\\"><p>\" + text + \"</p></aside>\";
+});
+
+// 2. Inject copy-to-clipboard JS
 if (content.includes('</body>')) {
   content = content.replace('</body>', script + '\n</body>');
-  fs.writeFileSync(filePath, content, 'utf8');
 }
+
+fs.writeFileSync(filePath, content, 'utf8');
 " "$html_file" "$JS_SCRIPT"
 done
 
