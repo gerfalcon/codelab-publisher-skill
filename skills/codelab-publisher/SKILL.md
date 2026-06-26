@@ -198,12 +198,13 @@ After `deploy.sh` prints the URL, do these in order:
 
 ## [9] Create feedback form prompt
 
-Once the codelab is built and verified, create a prompt that the user can use to generate a Google Form feedback template.
+Once the codelab is built and verified, create a prompt that the user can copy and paste directly into Gemini within the Google Forms website to generate a feedback form.
 
 1. **Extract Codelab Details:** Parse `codelab.md` to extract the H1 title (e.g., `# My Codelab Title`) and all the H2 step headings (e.g., `## 1. Introduction`).
 2. **Generate the Prompt:** Load the prompt template from `references/feedback-form-prompt.md`. Replace `{{CODELAB_TITLE}}` with the codelab's title, and populate `{{STEP_SECTIONS}}` with a list of step sections extracted from the H2 headers (e.g., `- Section: "Step: 1. Introduction"`).
 3. **Save to File:** Write the fully populated prompt into `feedback-form-prompt.txt` at the root of the project.
-4. **Instruct the User:** Present the prompt to the user and guide them on how to paste it into an LLM (such as Gemini or Claude) to generate a Google Apps Script, which they can run at script.google.com to instantly create their multi-section Google Form.
+4. **Instruct the User:** Present the prompt to the user and guide them on how to copy and paste it into the Gemini sidepanel ("Help me create a form") within the Google Forms editor to instantly generate their multi-section Google Form.
+
 
 ## Iterating after publish
 
